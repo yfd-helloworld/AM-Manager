@@ -4,4 +4,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.appinfo.dao.backenduser.BackendUserMapper">
 
+    <resultMap id="backendUserList" type="BackendUser">
+        <result property="id" column="id"/>
+        <result property="userCode" column="userCode"/>
+        <result property="userName" column="userName"/>
+        <result property="userPassword" column="userPassword"/>
+        <result property="userType" column="userType"/>
+        <result property="createBy" column="createBy"/>
+        <result property="creationDate" column="creationDate"/>
+        <result property="modifyBy" column="modifyBy"/>
+        <result property="modifyDate" column="modifyDate"/>
+        <result property="userTypeName" column="valueName"/>
+    </resultMap>
+
+    <select id="login" resultMap="backendUserList" >
+      SELECT u.*,d.valueName FROM backend_user u,data_dictionary d WHERE userCode = #{userCode} AND userPassword = #{password} AND u.userType = d.id
+    </select>
 </mapper>

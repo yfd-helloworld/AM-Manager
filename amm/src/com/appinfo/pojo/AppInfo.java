@@ -32,7 +32,7 @@ public class AppInfo {
 
     private String statusName;//app状态名称
     private String flatformName;//app所属平台名称
-    private String categoryLevel3Name;//所属三级分类名称
+    private String categoryLevel3Name;//所属三级分类名称p
     private String devName;//开发者名称
 
     private Integer categoryLevel1;//所属一级分类id

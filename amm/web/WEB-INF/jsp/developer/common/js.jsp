@@ -13,4 +13,8 @@
     <!-- validator -->
 <%--     <script src="${pageContext.request.contextPath }/statics/js/validator.js"></script> --%>
     <!-- dropzone -->
-    <script src="${pageContext.request.contextPath }/statics/js/dropzone.js"></script>  
+    <script src="${pageContext.request.contextPath }/statics/js/dropzone.js"></script>
+   <!-- 项目路径，动态获取 -->
+   <script type="text/javascript">
+       var path = "${pageContext.request.contextPath }";
+   </script>

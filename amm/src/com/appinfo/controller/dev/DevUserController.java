@@ -32,7 +32,7 @@ public class DevUserController extends BaseController {
         try {
             devUser = devUserService.login(devCode, devPassword);
             if (devUser != null) {
-                session.setAttribute("devUserSession", devUser);
+                session.setAttribute(Constants.DEV_USER_SESSION, devUser);
                 return "redirect:home.html";
             }
         } catch (Exception e) {

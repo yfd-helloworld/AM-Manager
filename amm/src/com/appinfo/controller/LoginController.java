@@ -1,8 +1,11 @@
 package com.appinfo.controller;
 
+import com.appinfo.tools.Constants;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author yfd
@@ -23,6 +26,13 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/dev/login")
     public String devLogin(){
         logger.debug("开发者登陆=====================>");
+        return "devlogin";
+    }
+
+    @RequestMapping(value = "/dev/logout")
+    public String devLogout(HttpSession session){
+        logger.debug("开发者注销=====================>");
+        session.removeAttribute(Constants.DEV_USER_SESSION);
         return "devlogin";
     }
 }

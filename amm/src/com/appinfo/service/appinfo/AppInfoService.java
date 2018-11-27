@@ -25,4 +25,6 @@ public interface AppInfoService {
     public boolean modify(AppInfo appInfo) throws Exception;
 
     public boolean delete(Integer id) throws Exception;
+
+    public boolean deleteAppLogo(Integer id) throws Exception;
 }

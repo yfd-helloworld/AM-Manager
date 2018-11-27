@@ -18,4 +18,6 @@ public interface AppVersionService {
     public boolean modify(AppVersion appVersion) throws Exception;
 
     public AppVersion getAppVersionById(Integer id) throws Exception;
+
+    public boolean deleteApkFile(Integer id) throws Exception;
 }

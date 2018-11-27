@@ -54,6 +54,16 @@ public class AppInfoServiceImpl implements AppInfoService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean delete(Integer id) throws Exception {
+        if (appInfoMapper.deleteAppInfoById(id) == 1)
+            return true;
+        return false;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean deleteAppLogo(Integer id) throws Exception {
+        if (appInfoMapper.deleteAppLogo(id) == 1)
+            return true;
         return false;
     }
 }

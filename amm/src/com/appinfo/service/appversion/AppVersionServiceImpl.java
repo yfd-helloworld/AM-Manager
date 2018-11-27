@@ -57,4 +57,11 @@ public class AppVersionServiceImpl implements AppVersionService {
     public AppVersion getAppVersionById(Integer id) throws Exception {
         return appVersionMapper.getAppVersionById(id);
     }
+
+    @Override
+    public boolean deleteApkFile(Integer id) throws Exception {
+        if (appVersionMapper.deleteApkFile(id) == 1)
+            return true;
+        return false;
+    }
 }

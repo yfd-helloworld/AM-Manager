@@ -172,11 +172,12 @@ var saleSwitchAjax = function(appId,obj){
 };
 
 
-
+//查看APP所有信息
 $(".viewApp").on("click",function(){
 	var obj = $(this);
 	window.location.href="appview/"+ obj.attr("appinfoid");
 });
+
 
 $(".deleteApp").on("click",function(){
 	var obj = $(this);

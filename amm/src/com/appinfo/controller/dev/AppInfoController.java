@@ -419,7 +419,7 @@ public class AppInfoController {
 
     @RequestMapping(value="/{appid}/sale",method=RequestMethod.GET)
     @ResponseBody
-    public Object sale(@PathVariable String appid,HttpSession session){
+    public String sale(@PathVariable String appid,HttpSession session){
         HashMap<String, Object> resultMap = new HashMap<String, Object>();
         Integer appIdInteger = 0;
         try{
@@ -453,6 +453,8 @@ public class AppInfoController {
          * errorCode:exception000001
          * appId:appId
          * errorCode:param000001
+         * 处理Ajax请求服务器端以Map对象存储结果时，直接返回Java的Map对象会造成客户端406
+         * 应该将Java对象转换为JSON字符串返回出方法
          */
         return JSONArray.toJSONString(resultMap);
     }

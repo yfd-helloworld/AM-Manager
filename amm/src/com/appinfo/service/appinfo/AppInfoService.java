@@ -29,4 +29,6 @@ public interface AppInfoService {
     public boolean deleteAppLogo(Integer id) throws Exception;
 
     public boolean appsysUpdateSaleStatusByAppId(AppInfo appInfoObj) throws Exception;
+
+    public boolean updateSatus(Integer status,Integer id)throws Exception;
 }

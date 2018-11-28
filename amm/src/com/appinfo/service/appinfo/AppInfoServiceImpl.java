@@ -137,6 +137,13 @@ public class AppInfoServiceImpl implements AppInfoService {
         return true;
     }
 
+    @Override
+    public boolean updateSatus(Integer status, Integer id) throws Exception {
+        if (appInfoMapper.updateSatus(status, id)==1)
+            return true;
+        return false;
+    }
+
     /**
      * set sale method to on or off
      * @param appInfo

@@ -2,6 +2,7 @@ package com.appinfo.controller.dev;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.appinfo.controller.BaseController;
 import com.appinfo.pojo.*;
 import com.appinfo.service.appcategory.AppCategoryService;
 import com.appinfo.service.appinfo.AppInfoService;
@@ -32,7 +33,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/dev/app")
-public class AppInfoController {
+public class AppInfoController extends BaseController {
     private Logger logger = Logger.getLogger(AppInfoController.class);
 
     @Resource

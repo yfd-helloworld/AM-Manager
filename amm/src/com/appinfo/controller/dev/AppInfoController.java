@@ -9,6 +9,7 @@ import com.appinfo.service.appversion.AppVersionService;
 import com.appinfo.service.datadictionary.DataDictionaryService;
 import com.appinfo.tools.Constants;
 import com.appinfo.tools.PageSupport;
+import com.mysql.jdbc.StringUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -394,5 +395,65 @@ public class AppInfoController {
         return JSONArray.toJSONString(resultMap);
     }
 
+    @RequestMapping(value="/delapp.json")
+    @ResponseBody
+    public Object delApp(@RequestParam String id){
+        logger.debug("delApp appId===================== "+id);
+        HashMap<String, String> resultMap = new HashMap<String, String>();
+        if(StringUtils.isNullOrEmpty(id)){
+            resultMap.put("delResult", "notexist");
+        }else{
+            try {
+                if(appInfoService.delete(Integer.parseInt(id)))
+                    resultMap.put("delResult", "true");
+                else
+                    resultMap.put("delResult", "false");
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return JSONArray.toJSONString(resultMap);
+    }
 
+    @RequestMapping(value="/{appid}/sale",method=RequestMethod.GET)
+    @ResponseBody
+    public Object sale(@PathVariable String appid,HttpSession session){
+        HashMap<String, Object> resultMap = new HashMap<String, Object>();
+        Integer appIdInteger = 0;
+        try{
+            appIdInteger = Integer.parseInt(appid);
+        }catch(Exception e){
+            appIdInteger = 0;
+        }
+        resultMap.put("errorCode", "0");
+        resultMap.put("appId", appid);
+        if(appIdInteger>0){
+            try {
+                DevUser devUser = (DevUser)session.getAttribute(Constants.DEV_USER_SESSION);
+                AppInfo appInfo = new AppInfo();
+                appInfo.setId(appIdInteger);
+                appInfo.setModifyBy(devUser.getId());
+                if(appInfoService.appsysUpdateSaleStatusByAppId(appInfo)){
+                    resultMap.put("resultMsg", "success");
+                }else{
+                    resultMap.put("resultMsg", "success");
+                }
+            } catch (Exception e) {
+                resultMap.put("errorCode", "exception000001");
+            }
+        }else{
+            //errorCode:0为正常
+            resultMap.put("errorCode", "param000001");
+        }
+
+        /*
+         * resultMsg:success/failed
+         * errorCode:exception000001
+         * appId:appId
+         * errorCode:param000001
+         */
+        return JSONArray.toJSONString(resultMap);
+    }
 }

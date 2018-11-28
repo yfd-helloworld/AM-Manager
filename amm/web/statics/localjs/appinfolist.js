@@ -105,7 +105,7 @@ $(document).on("click",".saleSwichOpen,.saleSwichClose",function(){
 
 var saleSwitchAjax = function(appId,obj){
 	$.ajax({
-		type:"PUT",
+		type:"GET",
 		url:appId+"/sale.json",
 		dataType:"json",
 		success:function(data){
@@ -146,7 +146,7 @@ var saleSwitchAjax = function(appId,obj){
 						$("#appInfoStatus" + obj.attr("appinfoid")).hide();
 						$("#appInfoStatus" + obj.attr("appinfoid")).slideDown(300);
 					}
-				}else if(data.resultMsg === "failed"){//删除失败
+				}else if(data.resultMsg === "failed"){//上架失败
 					if("open" === obj.attr("saleSwitch")){
 						alert("恭喜您，【"+obj.attr("appsoftwarename")+"】的【上架】操作失败");
 					}else if("close" === obj.attr("saleSwitch")){

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -60,9 +61,39 @@ public class AppInfoServiceImpl implements AppInfoService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean delete(Integer id) throws Exception {
-        if (appInfoMapper.deleteAppInfoById(id) == 1)
-            return true;
-        return false;
+        boolean flag = false;
+        int versionCount = appVersionMapper.getVersionCountByAppId(id);
+        List<AppVersion> appVersionList = null;
+        if(versionCount > 0){//1 先删版本信息
+            //<1> 删除上传的apk文件
+            appVersionList = appVersionMapper.getAppVersionList(id);
+            for(AppVersion appVersion:appVersionList){
+                if(appVersion.getApkLocPath() != null && !appVersion.getApkLocPath().equals("")){
+                    File file = new File(appVersion.getApkLocPath());
+                    if(file.exists()){
+                        if(!file.delete())
+                            throw new Exception();
+                    }
+                }
+            }
+            //<2> 删除app_version表数据
+            appVersionMapper.deleteVersionByAppId(id);
+        }
+        //2 再删app基础信息
+        //<1> 删除上传的logo图片
+        AppInfo appInfo = appInfoMapper.getAppInfo(id, null);
+        if(appInfo.getLogoLocPath() != null && !appInfo.getLogoLocPath().equals("")){
+            File file = new File(appInfo.getLogoLocPath());
+            if(file.exists()){
+                if(!file.delete())
+                    throw new Exception();
+            }
+        }
+        //<2> 删除app_info表数据
+        if(appInfoMapper.deleteAppInfoById(id) > 0){
+            flag = true;
+        }
+        return flag;
     }
 
     @Override

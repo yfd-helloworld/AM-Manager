@@ -210,7 +210,6 @@ public class AppCheckController extends BaseController {
                 return "redirect:/manager/backend/app/list";
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return "backend/appcheck";
